@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class UserData
 {
     /**
      * @ORM\Id()
@@ -26,11 +26,19 @@ class User
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getUserName(): ?string
     {
         return $this->userName;
     }
 
+    /**
+     * @param string $userName
+     *
+     * @return UserData
+     */
     public function setUserName(string $userName): self
     {
         $this->userName = $userName;

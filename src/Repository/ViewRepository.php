@@ -19,6 +19,40 @@ class ViewRepository extends ServiceEntityRepository
         parent::__construct($registry, View::class);
     }
 
+    public function findByParams($values)
+    {
+         $query = $this->createQueryBuilder('v')
+            ->andWhere('v.version = :version')
+            ->andWhere('v.hitType = :hitType')
+            ->andWhere('v.trackingId = :trackingId')
+            ->setParameter('version', $values["v"])
+            ->setParameter('hitType', $values["t"])
+            ->setParameter('trackingId', $values["tid"]);
+
+//            if($values["t"] == "event") {
+//                $query->andWhere('v.eventCategory = :eventCategory')
+//                    ->andWhere('v.eventAction = :eventAction')
+//                    ->setParameter('eventCategory', $values["ec"])
+//                    ->setParameter('eventAction', $values["ea"]);
+//            }
+//
+//            if($values["t"] == "screenview") {
+//                $query->andWhere('v.screenName = :screenName')
+//                    ->setParameter('screenName', $values["sn"]);
+//            }
+
+
+        $query
+            ->orderBy('v.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+
+
+            return $query;
+    }
+
+
     // /**
     //  * @return View[] Returns an array of View objects
     //  */
